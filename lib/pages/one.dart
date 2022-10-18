@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:assignment/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -23,8 +22,6 @@ class _onePageState extends State<onePage> {
   List incomingData = [];
   String buttonText = "Fetch data";
 
-  // get http => "https://api.publicapis.org/entries";
-
   @override
   void initState() {
     super.initState();
@@ -37,11 +34,14 @@ class _onePageState extends State<onePage> {
         child: SizedBox(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: incomingData.length > 0
-                ? ListView(
-                    children: incomingData.map((each) {
-                      return Text("${each['API']}");
-                    }).toList(),
+            child: incomingData.isNotEmpty
+                ? ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(incomingData[index]['API']),
+                      );
+                    },
+                    itemCount: incomingData.length,
                   )
                 : TextButton(
                     style: ButtonStyle(
